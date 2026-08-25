@@ -24,3 +24,32 @@ resource "aws_cognito_user_pool_domain" "hosted_ui" {
   # 1 = Hosted UI clásica
   managed_login_version = 1
 }
+resource "aws_cognito_user_pool_client" "spa" {
+  name         = "spa-react"
+  user_pool_id = aws_cognito_user_pool.pool.id
+
+  generate_secret = false
+
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_flows                   = ["code"]
+
+  supported_identity_providers = ["COGNITO"]
+
+  allowed_oauth_scopes = ["openid", "email", "profile"]
+
+  callback_urls = ["http://localhost:5173/"]
+  logout_urls   = ["http://localhost:5173/"]
+
+  explicit_auth_flows = [
+    "ALLOW_USER_PASSWORD_AUTH",
+    "ALLOW_REFRESH_TOKEN_AUTH"
+  ]
+
+  access_token_validity = 60
+  id_token_validity     = 60
+
+  token_validity_units {
+    access_token = "minutes"
+    id_token     = "minutes"
+  }
+}
