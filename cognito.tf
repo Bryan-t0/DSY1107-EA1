@@ -1,5 +1,5 @@
 resource "aws_cognito_user_pool" "pool" {
-  name = "dsy1107-grupoXX"
+  name = "dsy1107-grupoxx-001"
 
   username_attributes      = ["email"]
   auto_verified_attributes = ["email"]
@@ -18,7 +18,7 @@ resource "aws_cognito_user_pool" "pool" {
 }
 
 resource "aws_cognito_user_pool_domain" "hosted_ui" {
-  domain       = "dsy1107-grupoXX"
+  domain       = "dsy1107-grupoxx-001"
   user_pool_id = aws_cognito_user_pool.pool.id
 
   # 1 = Hosted UI clásica
